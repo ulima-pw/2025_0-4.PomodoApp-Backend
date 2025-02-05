@@ -1,6 +1,7 @@
 import express, {Express, Request, Response} from "express"
 import dotenv from "dotenv"
 import bodyParser from "body-parser"
+import cors from "cors"
 
 dotenv.config()
 
@@ -9,6 +10,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
     extended : true
 }))
+app.use(cors()) // TODO: Incrementar la seguridad
 
 const port = process.env.PORT || 3000
 
@@ -53,6 +55,7 @@ app.get("/ep3", (req : Request, resp : Response) => {
 //      "msg" : "Error en login"  
 //  }
 app.post("/login", (req : Request, resp : Response) => {
+    console.log(req.body)
     const usuario = req.body.usuario
     const password = req.body.password
 
