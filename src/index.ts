@@ -41,8 +41,8 @@ app.get("/ep3", (req : Request, resp : Response) => {
 
 // Endpoint Login
 // Ruta : "/login"
-// Method: GET
-// Query params : usuario, password
+// Method: POST
+// Form : usuario, password
 // Output:
 //  En el caso que login sea correcto:
 //  {
@@ -52,9 +52,9 @@ app.get("/ep3", (req : Request, resp : Response) => {
 //  {
 //      "msg" : "Error en login"  
 //  }
-app.get("/login", (req : Request, resp : Response) => {
-    const usuario = req.query.usuario
-    const password = req.query.password
+app.post("/login", (req : Request, resp : Response) => {
+    const usuario = req.body.usuario
+    const password = req.body.password
 
     if (usuario == "PW" && password == "123"){
         // Login es correcto
