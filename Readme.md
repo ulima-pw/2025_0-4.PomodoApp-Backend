@@ -8,16 +8,26 @@ Instalar las dependencias
 $ npm install
 ```
 
-# Ejecución
+## Construcción
 
 Compilamos
 
 ```
-$ npx tsc
+$ npm run build
 ```
 
-Ejecutamos
+## Ejecución
+
+### En Desa
 
 ```
-$ node dist/index.js
+$ npm run dev
+```
+
+### En Prod
+
+**NOTA:** No olvidarse antes de haber construido el proyecto.
+
+```
+$ npm start
 ```

@@ -72,6 +72,56 @@ app.post("/login", (req : Request, resp : Response) => {
     }
 })
 
+// Endpoint Listar Proyectos
+// Ruta : "/proyectos"
+// Method: GET
+// Input
+// Output:
+//  En el caso que login sea correcto:
+//  {
+//      "msg" : "",
+//      "proyectos" : [
+//          {
+//              "id" : 1,
+//              "nombre" : "Proyecto 1",
+//              "nro_pom" : 5,
+//              "categoria" : 1,
+//              "status" : 1
+//          },
+//          {
+//              "id" : 2,
+//              "nombre" : "Proyecto 2",
+//              "nro_pom" : 2,
+//              "categoria" : 2,
+//              "status" : 1
+//          }
+//  }
+//  En el caso de error:
+//  {
+//      "msg" : "Error: ..."  
+//  }
+app.get("/proyectos", (req : Request, resp : Response) => {
+    resp.json({
+        msg : "",
+        proyectos : [
+            {
+                id : 1,
+                nombre : "Proyecto 1",
+                nro_pom : 5,
+                categoria : 1,
+                status : 1
+            },
+            {
+                id : 2,
+                nombre : "Proyecto 2",
+                nro_pom : 2,
+                categoria : 2,
+                status : 1
+            }
+        ]
+    })
+})
+
 app.listen(port, () => {
     console.log(`[Server]: Servidor ejecutandose en puerto ${port}`)
 })
