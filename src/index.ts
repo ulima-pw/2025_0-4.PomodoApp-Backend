@@ -2,6 +2,7 @@ import express, {Express, Request, Response} from "express"
 import dotenv from "dotenv"
 import bodyParser from "body-parser"
 import cors from "cors"
+import ProyectoController from "./Controllers/ProyectoController"
 
 dotenv.config()
 
@@ -101,27 +102,9 @@ app.post("/login", (req : Request, resp : Response) => {
 //  {
 //      "msg" : "Error: ..."  
 //  }
-app.get("/proyectos", (req : Request, resp : Response) => {
-    resp.json({
-        msg : "",
-        proyectos : [
-            {
-                id : 1,
-                nombre : "Proyecto 1",
-                nro_pom : 5,
-                categoria : 1,
-                status : 1
-            },
-            {
-                id : 2,
-                nombre : "Proyecto 2",
-                nro_pom : 2,
-                categoria : 2,
-                status : 1
-            }
-        ]
-    })
-})
+const proyectoController = ProyectoController()
+app.use(proyectoController.path, proyectoController.router)
+
 
 app.listen(port, () => {
     console.log(`[Server]: Servidor ejecutandose en puerto ${port}`)
