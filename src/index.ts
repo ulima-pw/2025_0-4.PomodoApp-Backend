@@ -1,8 +1,9 @@
-import express, {Express, Request, Response} from "express"
+import express, {Express, Request, Response, Router} from "express"
 import dotenv from "dotenv"
 import bodyParser from "body-parser"
 import cors from "cors"
 import ProyectoController from "./Controllers/ProyectoController"
+import UsuarioController from "./Controllers/UsuarioController"
 
 dotenv.config()
 
@@ -16,94 +17,11 @@ app.use(cors()) // TODO: Incrementar la seguridad
 
 const port = process.env.PORT || 3000
 
-// Endpoint
-// Ruta: "/"
-// "Tipo (method): GET 
-app.get("/", (req : Request, resp : Response) => {
-    resp.send("<h1>HOLA PW</h1>")
-})
+const [proyectoPath, proyectoRouter] = ProyectoController()
+const [usuarioPath, usuarioRouter] = UsuarioController()
 
-app.get("/ep1", (req : Request, resp : Response) => {
-    resp.send("Endpoint 2")
-})
-
-// Endpoint
-// Ruta: "/ep2"
-// "Tipo (method): GET
-// Path params: nombre
-app.get("/ep2/:nombre", (req : Request, resp : Response) => {
-    resp.send(`Hola ${req.params.nombre}`)
-})
-
-// Endpoint
-// Ruta: "/ep3"
-// Tipo (method): GET
-// Query params: nombre, apellido
-app.get("/ep3", (req : Request, resp : Response) => {
-    resp.send(`Hola ${req.query.nombre} ${req.query.apellido}`)
-})
-
-// Endpoint Login
-// Ruta : "/login"
-// Method: POST
-// Form : usuario, password
-// Output:
-//  En el caso que login sea correcto:
-//  {
-//      "msg" : ""  
-//  }
-//  En el caso de error en el login:
-//  {
-//      "msg" : "Error en login"  
-//  }
-app.post("/login", (req : Request, resp : Response) => {
-    console.log(req.body)
-    const usuario = req.body.usuario
-    const password = req.body.password
-
-    if (usuario == "PW" && password == "123"){
-        // Login es correcto
-        resp.json({
-            msg : ""
-        })
-    }else {
-        // Login es correcto
-        resp.json({
-            msg : "Error en login"
-        })
-    }
-})
-
-// Endpoint Listar Proyectos
-// Ruta : "/proyectos"
-// Method: GET
-// Input
-// Output:
-//  En el caso que login sea correcto:
-//  {
-//      "msg" : "",
-//      "proyectos" : [
-//          {
-//              "id" : 1,
-//              "nombre" : "Proyecto 1",
-//              "nro_pom" : 5,
-//              "categoria" : 1,
-//              "status" : 1
-//          },
-//          {
-//              "id" : 2,
-//              "nombre" : "Proyecto 2",
-//              "nro_pom" : 2,
-//              "categoria" : 2,
-//              "status" : 1
-//          }
-//  }
-//  En el caso de error:
-//  {
-//      "msg" : "Error: ..."  
-//  }
-const proyectoController = ProyectoController()
-app.use(proyectoController.path, proyectoController.router)
+app.use(proyectoPath as string , proyectoRouter as Router)
+app.use(usuarioPath as string , usuarioRouter as Router)
 
 
 app.listen(port, () => {

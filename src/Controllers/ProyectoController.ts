@@ -1,11 +1,39 @@
 import express, {Request, Response} from "express"
 
 const ProyectoController = () => {
-    const path = "/proyectos"
+    const path : string = "/proyectos"
 
     const router = express.Router()
 
     // Operacion para listar proyectos
+    // Endpoint Listar Proyectos
+    // Ruta : "/proyectos"
+    // Method: GET
+    // Input
+    // Output:
+    //  En el caso que login sea correcto:
+    //  {
+    //      "msg" : "",
+    //      "proyectos" : [
+    //          {
+    //              "id" : 1,
+    //              "nombre" : "Proyecto 1",
+    //              "nro_pom" : 5,
+    //              "categoria" : 1,
+    //              "status" : 1
+    //          },
+    //          {
+    //              "id" : 2,
+    //              "nombre" : "Proyecto 2",
+    //              "nro_pom" : 2,
+    //              "categoria" : 2,
+    //              "status" : 1
+    //          }
+    //  }
+    //  En el caso de error:
+    //  {
+    //      "msg" : "Error: ..."  
+    //  }
     router.get("/", (req : Request, resp : Response ) => {
         resp.json({
             msg : "",
@@ -43,7 +71,7 @@ const ProyectoController = () => {
         })
     })
 
-    return { router, path }
+    return [ path, router ]
 }
 
 export default ProyectoController;
