@@ -1,4 +1,6 @@
 import express, {Request, Response} from "express"
+//import db from "../DAO/models"
+const db = require("../DAO/models")
 
 const UsuarioController = () => {
     const path = "/usuarios"
@@ -18,18 +20,26 @@ const UsuarioController = () => {
     //  {
     //      "msg" : "Error en login"  
     //  }
-    router.post("/login", (req : Request, resp : Response) => {
+    router.post("/login", async (req : Request, resp : Response) => {
         console.log(req.body)
         const usuario = req.body.usuario
         const password = req.body.password
-    
-        if (usuario == "PW" && password == "123"){
-            // Login es correcto
+
+        const usuarios = await db.Usuario.findAll({
+            where : {
+                username : usuario,
+                password : password
+            }
+        })
+        //console.log(usuarios)
+
+        if (usuarios.length > 0) {
+            // Login correcto
             resp.json({
                 msg : ""
             })
         }else {
-            // Login es correcto
+            // Login es incorrecto
             resp.json({
                 msg : "Error en login"
             })
