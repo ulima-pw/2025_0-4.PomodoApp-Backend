@@ -13,7 +13,6 @@ module.exports = {
      * }], {});
     */
     await queryInterface.bulkInsert('Usuario', [{
-      id : 1,
       nombre: 'Edgar Vargas',
       username : "edgar",
       password : "123456",
