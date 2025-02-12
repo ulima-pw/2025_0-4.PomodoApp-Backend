@@ -1,4 +1,5 @@
 import express, {Request, Response} from "express"
+const db = require("../DAO/models")
 
 const ProyectoController = () => {
     const path : string = "/proyectos"
@@ -34,8 +35,14 @@ const ProyectoController = () => {
     //  {
     //      "msg" : "Error: ..."  
     //  }
-    router.get("/", (req : Request, resp : Response ) => {
+    router.get("/", async (req : Request, resp : Response ) => {
+        const proyectos = await db.Proyecto.findAll()
         resp.json({
+            msg : "",
+            proyectos : proyectos
+        })
+
+        /*resp.json({
             msg : "",
             proyectos : [
                 {
@@ -53,7 +60,7 @@ const ProyectoController = () => {
                     status : 1
                 }
             ]
-        })
+        })*/
     })
 
     // Operacion para obtener un proyecto segun id
