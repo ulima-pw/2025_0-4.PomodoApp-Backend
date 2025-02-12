@@ -41,26 +41,40 @@ const ProyectoController = () => {
             msg : "",
             proyectos : proyectos
         })
+    })
 
-        /*resp.json({
+    /*
+    Endpoint de registro de Proyecto
+    Path : "/proyectos"
+    Metodo: POST
+    Input :
+        {
+            nombre: "",
+            categoria : 1
+        }
+    Output:
+        {
             msg : "",
-            proyectos : [
-                {
-                    id : 1,
-                    nombre : "Proyecto 1",
-                    nro_pom : 5,
-                    categoria : 1,
-                    status : 1
-                },
-                {
-                    id : 2,
-                    nombre : "Proyecto 2",
-                    nro_pom : 2,
-                    categoria : 2,
-                    status : 1
-                }
-            ]
-        })*/
+            proyecto : {
+                ...
+            }
+        }
+    */
+    router.post("/", async (req : Request, resp : Response) => {
+        const nuevoProyecto = req.body
+
+        const proyectoCreado = await db.Proyecto.create({
+            id : null,
+            nombre : nuevoProyecto.nombre,
+            nro_pom : 0,
+            categoria : nuevoProyecto.categoria,
+            status : 0
+        })
+
+        resp.json({
+            msg : "",
+            proyecto : proyectoCreado
+        })
     })
 
     // Operacion para obtener un proyecto segun id
