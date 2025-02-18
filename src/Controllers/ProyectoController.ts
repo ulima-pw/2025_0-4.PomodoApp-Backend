@@ -90,6 +90,20 @@ const ProyectoController = () => {
         })
     })
 
+    router.delete("/", async (req : Request, resp : Response) => {
+        const id = req.query.id
+
+        await db.Proyecto.destroy({
+            where : {
+                id : id
+            }
+        })
+
+        resp.json({
+            msg : ""
+        })
+    })
+
     // Operacion para obtener un proyecto segun id
     router.get("/:id", (req : Request, resp : Response ) => {
         const id = req.params.id
