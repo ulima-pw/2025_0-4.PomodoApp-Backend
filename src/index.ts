@@ -4,6 +4,7 @@ import bodyParser from "body-parser"
 import cors from "cors"
 import ProyectoController from "./Controllers/ProyectoController"
 import UsuarioController from "./Controllers/UsuarioController"
+import CategoriaController from "./Controllers/CategoriaController"
 
 dotenv.config()
 
@@ -19,9 +20,11 @@ const port = process.env.PORT || 3000
 
 const [proyectoPath, proyectoRouter] = ProyectoController()
 const [usuarioPath, usuarioRouter] = UsuarioController()
+const [categoriaPath, categoriaRouter] = CategoriaController()
 
 app.use(proyectoPath as string , proyectoRouter as Router)
 app.use(usuarioPath as string , usuarioRouter as Router)
+app.use(categoriaPath as string, categoriaRouter as Router)
 
 
 app.listen(port, () => {
