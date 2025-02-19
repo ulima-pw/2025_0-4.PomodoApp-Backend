@@ -13,6 +13,10 @@ module.exports = (sequelize, DataTypes) => {
       Proyecto.belongsTo(models.Categoria, {
         foreignKey : "categoriaId"
       })
+
+      Proyecto.hasMany(models.ProyectoXUsuario, {
+        foreignKey : "proyectoId"
+      })
     }
   }
   Proyecto.init({
