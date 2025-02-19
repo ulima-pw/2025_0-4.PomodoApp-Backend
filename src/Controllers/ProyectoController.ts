@@ -36,23 +36,18 @@ const ProyectoController = () => {
     //      "msg" : "Error: ..."  
     //  }
     router.get("/", async (req : Request, resp : Response ) => {
-        const proyectos = await db.Proyecto.findAll()
-
-        const proyectosADevolver = await Promise.all(proyectos.map(async (proy : any) => {
-            const categoria = await db.Categoria.findByPk(proy.categoriaId)
-            return {
-                id : proy.id,
-                nombre : proy.nombre,
-                nro_pom : proy.nro_pom,
-                categoriaId : proy.categoriaId,
-                status : proy.status,
-                categoria : categoria
+        const proyectos = await db.Proyecto.findAll({
+            include : {
+                model : db.Categoria,
+                as : "Categoria",
+                attributes : ["nombre"],
+                required : true
             }
-        }))
+        })
 
         resp.json({
             msg : "",
-            proyectos : proyectosADevolver
+            proyectos : proyectos
         })
     })
 
